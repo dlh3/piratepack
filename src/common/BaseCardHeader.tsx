@@ -1,4 +1,5 @@
 import { CardHeader, CardHeaderProps, styled } from '@mui/material';
+import StreamButton from '@/common/StreamButton';
 
 const StyledCardHeader = styled(CardHeader)(({ theme }) => ({
   padding: theme.spacing(1),
@@ -7,12 +8,19 @@ const StyledCardHeader = styled(CardHeader)(({ theme }) => ({
   },
 }));
 
-type BaseCardHeaderProps = CardHeaderProps;
+type BaseCardHeaderProps = { uid?: number } & CardHeaderProps;
 
 function BaseCardHeader(props: BaseCardHeaderProps) {
   return (
     <StyledCardHeader
       {...props}
+      title={<>
+        <StreamButton
+          uid={props.uid}
+          title={props.title}
+        />
+        {props.title}
+      </>}
       titleTypographyProps={{
         variant: 'subtitle2',
       }}

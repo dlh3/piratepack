@@ -6,6 +6,7 @@ import MovieRating from '@/movies/MovieRating';
 import { getMovieReleaseYear } from '@/movies/MoviesUtils';
 import TextWithLabel from '@/common/TextWithLabel';
 import NextLink from '@/routing/NextLink';
+import StreamButton from '@/common/StreamButton';
 
 const Overview = styled(Typography)({
   whiteSpace: 'pre-wrap',
@@ -28,8 +29,14 @@ function MovieIntroduction({ movie }: MovieIntroductionProps) {
           <Typography
             variant="h5"
             component="h1"
-            sx={{ fontWeight: (theme) => theme.typography.fontWeightBold }}
+            sx={{
+              fontWeight: (theme) => theme.typography.fontWeightBold,
+            }}
           >
+            <StreamButton
+              uid={movie.id}
+              title={movie.title}
+            />
             {movie.title}
           </Typography>
           <Stack

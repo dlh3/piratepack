@@ -26,6 +26,7 @@ function MovieCard({ movie, subheader }: MovieCardProps) {
         />
       </Box>
       <BaseCardHeader
+        uid={movie.id}
         title={movie.title}
         subheader={subheader}
         sx={{ paddingBottom: 0.25 }}
