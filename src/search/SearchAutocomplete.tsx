@@ -53,6 +53,9 @@ function SearchAutocomplete({ autoFocus, sx }: SearchAutocompleteProps) {
         case MediaType.PERSON:
           router.push(`/person/${selectedOption.id}`);
           break;
+        case MediaType.TV:
+          router.push(`/tv/${selectedOption.id}`);
+          break;
         default:
           return;
       }
@@ -70,23 +73,33 @@ function SearchAutocomplete({ autoFocus, sx }: SearchAutocompleteProps) {
   return (
     <BaseAutocomplete<Suggestion, false, true, true>
       sx={sx}
-      placeholder="Search Movies & People"
+      placeholder="Search Movies, TV, and People"
       options={options}
       renderOption={(props, option) => {
-        return isMovie(option) ? (
-          <MovieAutocompleteItem
-            {...props}
-            key={`${option.media_type}_${option.id}`}
-            movie={option}
-          />
-        ) : (
-          <PersonAutocompleteItem
-            {...props}
-            key={`${option.media_type}_${option.id}`}
-            person={option}
-          />
-        );
-      }}
+        if (isMovie(option)) {
+          return (
+            <MovieAutocompleteItem
+              {...props}
+              key={`${option.media_type}_${option.id}`}
+              movie={option}
+            />
+          );
+         } else if (isPerson(option)) {
+          return (
+            <PersonAutocompleteItem
+              {...props}
+              key={`${option.media_type}_${option.id}`}
+              person={option}
+            />
+          );
+         } else {
+          // TODO: add TV support
+          return (
+            <></>
+          );
+         }
+        }
+      }
       getOptionLabel={(option) => {
         if (typeof option === 'string') {
           // For freeSolo

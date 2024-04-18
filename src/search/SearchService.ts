@@ -39,5 +39,6 @@ const searchPeople = async ({ searchQuery, page }: SearchInput) => {
 export const searchService = {
   searchMulti,
   searchMovies,
+  // TODO: add searchTv,
   searchPeople,
 };
