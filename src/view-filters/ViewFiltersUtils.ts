@@ -5,13 +5,14 @@ import { BasePerson } from '@/people/PeopleTypes';
 import { isPerson } from '@/people/PeopleUtils';
 
 export const VIEW_FILTER_LIMIT = {
-  minVoteCount: 200,
-  minPopularity: 5,
+  includeAdult: true,
+  minVoteCount: 0,
+  minPopularity: 0,
 };
 
 export function shouldViewMovie<T extends Movie>(movie: T) {
   return (
-    !movie.adult &&
+    (VIEW_FILTER_LIMIT.includeAdult || !movie.adult) &&
     movie.vote_count >= VIEW_FILTER_LIMIT.minVoteCount &&
     movie.popularity >= VIEW_FILTER_LIMIT.minPopularity
   );
@@ -22,7 +23,10 @@ export function filterViewableMovies<T extends Movie>(movies: T[]) {
 }
 
 export function shouldViewPerson<T extends BasePerson>(person: T) {
-  return !person.adult && person.popularity >= VIEW_FILTER_LIMIT.minPopularity;
+  return (
+    (VIEW_FILTER_LIMIT.includeAdult || !person.adult) && 
+    person.popularity >= VIEW_FILTER_LIMIT.minPopularity
+  );
 }
 
 export function filterViewablePeople<T extends BasePerson>(people: T[]) {
